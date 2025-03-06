@@ -1,0 +1,24 @@
+{% extends 'DSLbase.html' %}
+
+{% block title %}DisSongs-Lit | Contact Us{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h2>Contact Us</h2>
+    <form method="POST" action="{% url 'DSLcontactus' %}">
+        {% csrf_token %}
+        <div class="row mb-3">
+            <div class="col-md-6">
+                <input type="text" class="form-control" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="col-md-6">
+                <input type="email" class="form-control" name="email" placeholder="Your Email" required>
+            </div>
+        </div>
+        <div class="mb-3">
+            <textarea class="form-control" name="message" placeholder="Your Message" rows="4" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Send Message</button>
+    </form>
+</div>
+{% endblock %}
