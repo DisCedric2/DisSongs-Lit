@@ -3,6 +3,7 @@ from django.contrib.auth.models import User
 
 # Create your views here.
 print("welcome")
+print("welcome-1")
 def DSLhome(req):
     return render(req, "DSLhome.html")
 
