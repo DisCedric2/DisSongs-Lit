@@ -2,51 +2,87 @@
 
 {% block title %}DisSongs-Lit | Home{% endblock %}
 
-{% block body %}
-<div class="text-center">
-    <h1>Welcome to DisSongs Lit</h1>
-    <p>You read it, it is LIT :*</p>
-    <p>Your go-to platform for song lyrics, discussions, and everything music-related.</p>
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+
+        <!-- Left Side (10 columns) - Songs -->
+        <div class="col-md-10">
+            <div class="text-center mb-4">
+                <h1>Welcome to DisSongs Lit</h1>
+                <p>You read it, it is LIT :*</p>
+                <p>Your go-to platform for song lyrics, discussions, and everything music-related.</p>
+            </div>
+
+            <!-- Featured Songs Section with Cards -->
+            <div class="row g-4">
+                {% for song in songs %}
+                <div class="col-md-6">
+                    <div class="card h-100 shadow-sm">
+                        <img src="{{ song.image.url }}" class="card-img-top rounded-top" alt="{{ song.title }}">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ song.title }} - {{ song.artist }}</h5>
+                            <p class="card-text">{{ song.description|truncatewords:20 }}</p>
+                            <a href="{{ song.video_url }}" target="_blank" class="btn btn-primary">Watch on YouTube</a>
+                        </div>
+                        <div class="card-footer text-muted">
+                            Uploaded on: {{ song.upload_date|date:"F j, Y" }}
+                        </div>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-center">No songs available at the moment.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+        <!-- Right Side (2 columns) - Premium Subscription -->
+        <div class="col-md-2 bg-light p-3 rounded">
+            {% if user.is_authenticated %}
+            <div class="premium-section text-center">
+                <h3>Premium Benefits</h3>
+                {% if user.premiumsubscription.subscription_status %}
+                    <p>You are a premium member!</p>
+                {% else %}
+                    <p>Subscribe now to get exclusive features!</p>
+                    <a href="{% url 'create_payment' %}" class="btn btn-success">Subscribe Now</a>
+                {% endif %}
+            </div>
+            {% else %}
+            <p class="text-center">Login to view premium options.</p>
+            {% endif %}
+        </div>
+
+    </div>
 </div>
 
-<!-- Featured Songs Section -->
-<div class="row text-center mt-4">
-    <div class="col-md-4">
-        <h3>1. Help Me Help You - Logan Paul</h3>
-        <a href="https://youtu.be/pT20g6lTZ-k" target="_blank">
-            <img src="{% static 'images/lp.png' %}" alt="Help Me Help You" class="img-fluid rounded">
-        </a>
-    </div>
-
-    <div class="col-md-4">
-        <h3>2. Lean Wit Me - Juice Wrld</h3>
-        <a href="https://youtu.be/5SejM_hBvMM" target="_blank">
-            <img src="{% static 'images/jw.png' %}" alt="Lean Wit Me" class="img-fluid rounded">
-        </a>
-    </div>
-
-    <div class="col-md-4">
-        <h3>3. Dimples - Oomiee</h3>
-        <a href="https://youtu.be/JMI0AfupnJs" target="_blank">
-            <img src="{% static 'images/oomiee.png' %}" alt="Dimples" class="img-fluid rounded">
-        </a>
-    </div>
-</div>
-
-<div class="row text-center mt-4">
-    <div class="col-md-6">
-        <h3>4. Anyone - Justin Bieber</h3>
-        <a href="https://youtu.be/KIK3azN4w34" target="_blank">
-            <img src="{% static 'images/jb.png' %}" alt="Anyone" class="img-fluid rounded">
-        </a>
-    </div>
-
-    <div class="col-md-6">
-        <h3>5. Rap God - Eminem</h3>
-        <a href="https://youtu.be/XbGs_qK2PQA" target="_blank">
-            <img src="{% static 'images/eminem.png' %}" alt="Rap God" class="img-fluid rounded">
-        </a>
-    </div>
-</div>
+<!-- Razorpay Script -->
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+<script>
+    var options = {
+        "key": "rzp_test_wH0ggQnd7iT3nB",
+        "amount": "10000",
+        "currency": "INR",
+        "name": "DisSongs Lit Premium",
+        "description": "Subscription to Premium Benefits",
+        "image": "{% static 'images/DisSongs.png' %}",
+        "handler": function (response) {
+            alert("Payment Successful! Payment ID: " + response.razorpay_payment_id);
+            window.location.href = "/premium/success";
+        },
+        "prefill": {
+            "name": "{{ user.username }}",
+            "email": "{{ user.email }}"
+        },
+        "theme": {
+            "color": "#007BFF"
+        }
+    };
+    var rzp1 = new Razorpay(options);
+    document.getElementById('rzp-button1').onclick = function (e) {
+        rzp1.open();
+        e.preventDefault();
+    }
+</script>
 
 {% endblock %}

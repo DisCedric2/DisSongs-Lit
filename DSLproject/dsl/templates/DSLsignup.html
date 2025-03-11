@@ -1,41 +1,32 @@
-{% extends 'DSLbase.html' %}
+{% extends "DSLbase.html" %}
 
-{% block title %}DisSongs-Lit | Sign UP{% endblock %}
+{% block title %}DisSongs-Lit | Sign-UP{% endblock %}
 
 {% block content %}
-<div class="d-flex justify-content-center align-items-center" style="height: 100vh;">
-    <div class="sign-up-form bg-white p-4 rounded shadow-lg" style="max-width: 400px; width: 100%;">
-        <h2 class="text-center mb-4">Sign Up</h2>
-        
-        <form method="POST" action="{% url 'DSLsignup' %}">
-            {% csrf_token %}
-            <div class="mb-3">
-                <label class="form-label">Username</label>
-                <input type="text" class="form-control" name="username" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Email</label>
-                <input type="email" class="form-control" name="email" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Password</label>
-                <input type="password" class="form-control" name="password1" required>
-            </div>
-            <div class="mb-3">
-                <label class="form-label">Confirm Password</label>
-                <input type="password" class="form-control" name="password2" required>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">Sign Up</button>
-        </form>
-
-        <!-- Google Sign-In Button -->
-        <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-danger w-100 mt-3">
-            <i class="fab fa-google"></i> Sign Up with Google
-        </a>
-
-        <div class="footer-text text-center mt-3">
-            <p>Already have an account? <a href="{% url 'DSLsignin' %}">Sign in</a></p>
+<div class="sign-up-form text-center mt-5">
+    <h2>Sign Up</h2>
+    <form action="{% url 'DSLsignup' %}" method="POST">
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" id="username" name="username" required>
         </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" class="form-control" id="email" name="email" required>
+        </div>
+        <div class="mb-3">
+            <label for="password1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="password1" name="password1" required>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="password2" name="password2" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
+    <div class="mt-3">
+        <p>Already have an account? <a href="{% url 'DSLsignin' %}">Sign In</a></p>
     </div>
 </div>
 {% endblock %}

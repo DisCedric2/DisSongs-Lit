@@ -8,4 +8,7 @@ urlpatterns = [
     path("DSLsignin/",views.DSLsignin, name='DSLsignin'),
     path("DSLaboutus/",views.DSLaboutus, name='DSLaboutus'),
     path("DSLcontactus/",views.DSLcontactus, name='DSLcontactus'),
+    path("premium/", views.create_payment, name="create_payment"),
+    path("premium/success/", views.payment_success, name="payment_success"),
+
 ]

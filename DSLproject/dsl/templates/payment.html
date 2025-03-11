@@ -1,0 +1,28 @@
+{% extends "DSLbase.html" %} {% load static %}
+
+{% block title %}DSL | Premium-Subscription{% endblock %}
+
+{% block content %}
+<div class="container text-center mt-5">
+    <h2>Subscribe to Premium</h2>
+    <p>Get exclusive access to premium features.</p>
+    <form action="{% url 'payment_success' %}" method="POST">
+        {% csrf_token %}
+        <script
+            src="https://checkout.razorpay.com/v1/checkout.js"
+            data-key="{{ api_key }}"
+            data-amount="{{ amount }}"
+            data-currency="INR"
+            data-order_id="{{ order_id }}"
+            data-buttontext="Pay with Razorpay"
+            data-name="DisSongs Lit"
+            data-description="Premium Subscription"
+            data-image="{% static 'images/DisSongs.png' %}"
+            data-prefill.name="{{ user.username }}"
+            data-prefill.email="{{ user.email }}"
+            data-theme.color="#007BFF">
+        </script>
+        <input type="hidden" name="razorpay_payment_id" id="razorpay_payment_id">
+    </form>
+</div>
+{% endblock %}

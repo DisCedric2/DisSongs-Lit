@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'dsl',
     'social_django',
+    'razorpay',
 ]
 
 MIDDLEWARE = [
@@ -137,3 +138,12 @@ LOGOUT_REDIRECT_URL = "/"
 SOCIAL_AUTH_GOOGLE_OAUTH2_KEY = "688343948336-a5k3co2oi6j59a84k69ta5m1mherpegn.apps.googleusercontent.com"
 SOCIAL_AUTH_GOOGLE_OAUTH2_SECRET = "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"
 
+RAZORPAY_API_KEY = "rzp_test_wH0ggQnd7iT3nB"
+RAZORPAY_API_SECRET = "eZseshY3oSsz2fcHZkTiSlCm"
+
+import os
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
