@@ -9,3 +9,13 @@ class AddSongAdmin(admin.ModelAdmin):
         "image",
         "video_url",
     ]
+
+class UpSongAdmin(admin.ModelAdmin):
+    list_display = [
+        'title', 'artist', 'uploaded_by',
+    ]
+    search_fields = [
+        'title', 'artist', 'uploaded_by__username',
+    ]
+
+admin.site.register(AddSong, AddSongAdmin)

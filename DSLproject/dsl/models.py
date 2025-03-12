@@ -1,17 +1,41 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
+
 
 # Create your models here.
 
+User = get_user_model()
+
+from django.utils import timezone
 class AddSong(models.Model):
     title = models.CharField(max_length=200)
     artist = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    lyrics = models.TextField(default='N/A', blank=True, null=True)
     image = models.ImageField(upload_to='images/')
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     video_url = models.URLField()
+    upload_date = models.DateTimeField(default=timezone.now)
+    
     
     def __str__(self):
         return f"{self.title} - {self.artist}"
-    
+
+class UpSong(models.Model):
+    title = models.CharField(max_length=100)
+    artist = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
+    lyrics = models.TextField(default='N/A', blank=True, null=True)
+    video_url = models.URLField(blank=True)
+    image = models.ImageField(upload_to='songs/', blank=True)
+    uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
+    upload_date = models.DateTimeField(default=timezone.now)
+
+    def __str__(self):
+        return self.title
+
+
 class PremiumSubscription(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     payment_id = models.CharField(max_length=100, blank=True, null=True)

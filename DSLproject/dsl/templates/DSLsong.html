@@ -1,0 +1,19 @@
+{% extends "DSLbase.html" %}
+
+{% block title %}DisSongs-Lit | {{ song.title }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>{{ song.title }} by {{ song.artist }}</h2>
+    <p><strong>Description:</strong> {{ song.description }}</p>
+    <p><strong>Lyrics:</strong></p>
+    <pre>{{ song.lyrics }}</pre>
+    {% if song.video_url %}
+        <p><strong>Watch:</strong> <a href="{{ song.video_url }}" target="_blank">YouTube</a></p>
+    {% endif %}
+    <p><strong>Uploaded by:</strong> <span class="text-primary">{{ song.uploaded_by.username }}</span></p>
+    {% if song.image %}
+        <img src="{{ song.image.url }}" alt="{{ song.title }}" class="img-fluid mt-3">
+    {% endif %}
+</div>
+{% endblock %}

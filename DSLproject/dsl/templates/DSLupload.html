@@ -1,0 +1,48 @@
+{% extends "DSLbase.html" %}
+
+{% block title %}DisSongs-Lit | Upload Song{% endblock %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center">
+    <div class="card shadow-lg" style="background-color: #001f3f; border-radius: 20px; width: 75%;">
+        <div class="card-body text-white">
+            <h2 class="text-center mb-4" style="color: #00aaff;">Upload Your Song and Get Credit</h2>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="mb-3">
+                    <label for="title" class="form-label" style="color: #00aaff;">Song Title</label>
+                    <input type="text" class="form-control border-0 rounded-pill" id="title" name="title" placeholder="Enter song title" required style="background-color: #003366; color: white;">
+                </div>
+                <div class="mb-3">
+                    <label for="artist" class="form-label" style="color: #00aaff;">Artist</label>
+                    <input type="text" class="form-control border-0 rounded-pill" id="artist" name="artist" placeholder="Enter artist name" required style="background-color: #003366; color: white;">
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label" style="color: #00aaff;">Description</label>
+                    <textarea class="form-control border-0 rounded" id="description" name="description" placeholder="Brief description..." rows="3" style="background-color: #003366; color: white;"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="lyrics" class="form-label" style="color: #00aaff;">Lyrics</label>
+                    <textarea class="form-control border-0 rounded" id="lyrics" name="lyrics" rows="5" placeholder="Paste your lyrics here..." required style="background-color: #003366; color: white;"></textarea>
+                </div>
+                <div class="mb-3">
+                    <label for="video_url" class="form-label" style="color: #00aaff;">YouTube Video URL</label>
+                    <input type="url" class="form-control border-0 rounded-pill" id="video_url" name="video_url" placeholder="https://youtu.be/..." style="background-color: #003366; color: white;">
+                </div>
+                <div class="mb-3">
+                    <label for="image" class="form-label" style="color: #00aaff;">Song Cover Image</label>
+                    <input type="file" class="form-control border-0 rounded-pill" id="image" name="image" style="background-color: #003366; color: white;">
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary rounded-pill px-5" style="background-color: #005f99; border: none;">Upload</button>
+                </div>
+            </form>
+
+            {% if song %}
+            <hr style="border-top: 1px solid #00aaff;">
+            <h4 class="text-center mt-3" style="color: #00aaff;">Song Uploaded by: <span class="fw-bold">{{ song.uploaded_by.username }}</span></h4>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}
