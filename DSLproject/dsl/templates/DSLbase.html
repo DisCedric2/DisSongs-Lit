@@ -81,7 +81,7 @@
                             <a class="nav-link" href="{% url 'DSLcontactus' %}">Contact Us</a>
                         </li>
                         <li class="nav-item">
-                            <form method="post" action="{% url 'logout' %}">
+                            <form method="post" action="{% url 'logout_user' %}">
                                 {% csrf_token %}
                                 <button type="submit" class="nav-link btn btn-link text-white" style="text-decoration: none;">Logout</button>
                             </form>
