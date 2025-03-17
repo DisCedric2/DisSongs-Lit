@@ -91,7 +91,7 @@ def signup(req):
                 userdata.set_password(upass)
                 userdata.save()
                 print(User.objects.all())
-                return redirect("DSLsignin")
+                return redirect("signin")
             except:
                 print("User already exists :?")
                 context["errmsg"] = "User already exists :?"

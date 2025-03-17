@@ -1,4 +1,4 @@
-{% extends "DSLbase.html" %}
+{% extends "DSLbase.html" %}{% load static %}
 
 {% block title %}DisSongs-Lit | Sign-UP{% endblock %}
 
@@ -13,7 +13,7 @@
             </div>
             {% endif %}
             <h2>Sign Up</h2>
-            <form method="POST" action="">
+            <form method="post">
                 {% csrf_token %}
                 <div class="mb-3">
                     <label for="username" class="form-label">Username</label>
