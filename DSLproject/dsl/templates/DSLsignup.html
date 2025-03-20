@@ -33,13 +33,14 @@
                 </div>
                 <center><button type="submit" class="btn btn-primary">Sign Up</button></center>
             </form>
-            <a href="{% url 'social:begin' 'google-oauth2' %}">
-                <button type="button" class="btn btn-link btn-floating mx-1">
-                <i class="bi bi-google">Sign in with Google</i>
-                </button>
+            <!-- Google Sign Up Button -->
+            <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-danger w-100 mt-3">
+                <i class="bi bi-google"></i> Sign Up with Google
             </a>
-            <div class="mt-3">
-                <p>Already have an account? <a href="{% url 'DSLsignin' %}">Sign In</a></p>
+
+            <div class="mt-3 text-center">
+                <p>Already have an account?
+                <a href="{% url 'DSLsignin' %}" >Sign In</a></p>
             </div>
         </div>
     </div>

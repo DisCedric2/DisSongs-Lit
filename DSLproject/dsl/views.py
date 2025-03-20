@@ -62,10 +62,10 @@ def signup(req):
     else:
         print(req.method)
         uname = req.POST["uname"]
-        uemail = req.POST["email"]
+        uemail = req.POST["uemail"]
         upass = req.POST["upass"]
         ucpass = req.POST["ucpass"]
-        print(uname,uemail , upass, ucpass)
+        print(uname, uemail , upass, ucpass)
 
         try:
             validate_password(upass)
@@ -77,7 +77,7 @@ def signup(req):
             context["errmsg"] = "Field cannot be empty :("
             return render(req, "DSLsignup.html", context)
         elif upass != ucpass:
-            context["errmsg"] = "Password and Confirm Passwrod aint matching dude :("
+            context["errmsg"] = "Password and Confirm Password aint matching dude :("
             return render(req, "DSLsignup.html", context)
         elif uname.isdigit():
             context["errmsg"] = "Username cannot be only Number smarty :("
@@ -87,11 +87,11 @@ def signup(req):
             return render(req, "DSLsignup.html", context)
         else:
             try:
-                userdata = User.object.create(username=uname, password=upass)
+                userdata = User.objects.create_user(username=uname, uemail=uemail, password=upass, confirmpassword=ucpass)
                 userdata.set_password(upass)
                 userdata.save()
                 print(User.objects.all())
-                return redirect("signin")
+                return redirect("DSLsignin")
             except:
                 print("User already exists :?")
                 context["errmsg"] = "User already exists :?"
@@ -99,21 +99,21 @@ def signup(req):
 
 def signin(req):
     if req.method == "POST":
-        uname = req.POST["uname"]
-        upass = req.POST["upass"]
+        uname = req.POST["username"]
+        upass = req.POST["password"]
         context = {}
         if uname == "" or upass == "":
             context["errmsg"] = "Field cant be empty :("
-            return render(req, "signin.html", context)
+            return render(req, "DSLsignin.html", context)
         else:
             userdata = authenticate(username=uname, password=upass)
             print(req.user.password)
             if userdata is not None:
                 login(req, userdata)
-                return redirect("/")
+                return redirect("DSLhome")
             else:
                 context["errmsg"] = "Invalid username and password :("
-                return render(req, "DSLsignup.html", context)
+                return render(req, "DSLsignin.html", context)
     else:
         return render(req, "DSLsignin.html")
 
