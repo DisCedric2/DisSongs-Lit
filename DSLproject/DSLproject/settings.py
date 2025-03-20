@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'dsl',
     'social_django',
     'razorpay',
+    'django.contrib.humanize' # for intcomma in top songs chart
 ]
 
 MIDDLEWARE = [

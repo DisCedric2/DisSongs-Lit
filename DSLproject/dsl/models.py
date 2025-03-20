@@ -17,6 +17,7 @@ class AddSong(models.Model):
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
     video_url = models.URLField()
     upload_date = models.DateTimeField(default=timezone.now)
+    click_count = models.IntegerField(default=0) #top chart counter
     
     
     def __str__(self):

@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
     <style>
         body {
-            background-color: #ffffff;
+            background-color: white;
             color: black;
         }
         .navbar {
@@ -64,7 +64,7 @@
                         {% endif %}
                         
                         {% if not user.is_authenticated %}
-                        <li class="nav-item">
+                        <li class="nav-item" color="white">
                             <span class="navbar-text me-3">Welcome, Guest!</span>
                         </li>
                         <li class="nav-item">
@@ -76,22 +76,21 @@
                             
                         {% else %}
                         <li class="nav-item">
-                            <a class="nav-link" href="#about">About Us</a>
+                            <a class="nav-link" href="{% url 'DSLhome' %}#about">About Us</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#contact">Contact Us</a>
+                            <a class="nav-link" href="{% url 'DSLcontactus' %}">Contact Us</a>
                         </li>
+                        {% if user.is_authenticated and not user.is_superuser %}
+                        <li class="nav-item">
+                        <a class="nav-link" href="{% url 'DSLupload' %}">Get Credit</a>
+                        </li>
+                        {% endif %}
                         <li class="nav-item">
                             <form method="post" action="{% url 'logout_user' %}">
                                 {% csrf_token %}
                                 <button type="submit" class="nav-link btn btn-link text-white" style="text-decoration: none;">Logout</button>
                             </form>
-                        </li>
-                        {% endif %}
-
-                        {% if user.is_authenticated and not user.is_superuser %}
-                        <li class="nav-item">
-                        <a class="nav-link" href="{% url 'DSLupload' %}">Get Credit</a>
                         </li>
                         {% endif %}
                     </ul>

@@ -86,16 +86,20 @@ def signup(req):
             context["errmsg"] = "Password cannot be same as Username common dude u r lazy :("
             return render(req, "DSLsignup.html", context)
         else:
-            try:
-                userdata = User.objects.create_user(username=uname, uemail=uemail, password=upass, confirmpassword=ucpass)
-                userdata.set_password(upass)
-                userdata.save()
-                print(User.objects.all())
-                return redirect("DSLsignin")
-            except:
-                print("User already exists :?")
+            # check for an already user
+            if User.objects.filter(username=uname).exists():
                 context["errmsg"] = "User already exists :?"
-                return render(req, "DSLsignup.html", context)
+                return render (req, "DSLsignup.html", context)
+            else:
+                try:
+                    userdata = User.objects.create_user(username=uname, password=upass)
+                    userdata.save()
+                    print(User.objects.all())
+                    return redirect("DSLsignin")
+                except Exception as e:
+                    print("Error creating user")
+                    context["errmsg"] = f"Error creating user :{str(e)} :("
+                    return render(req, "DSLsignup.html", context)
 
 def signin(req):
     if req.method == "POST":
@@ -107,7 +111,7 @@ def signin(req):
             return render(req, "DSLsignin.html", context)
         else:
             userdata = authenticate(username=uname, password=upass)
-            print(req.user.password)
+            #print(req.user.password)
             if userdata is not None:
                 login(req, userdata)
                 return redirect("DSLhome")
@@ -213,10 +217,18 @@ from .models import AddSong
 def DSLsong(request, song_id):
     try:
         song = AddSong.objects.get(pk=song_id)
+        song.click_count += 1 #increment for top song chart counter
+        song.save()
         context = {'song': song}
         return render(request, 'DSLsong.html', context)
     except AddSong.DoesNotExist:
         return redirect('DSLhome')
+    
+def DSLhome(req):
+    top_songs = AddSong.objects.all().order_by('-click_count')[:5] #top 5 most played songs
+    songs = AddSong.objects.all()
+    context = {'songs':songs, 'top_songs':top_songs}
+    return render(req, 'DSLhome.html', context)
     
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
@@ -244,3 +256,8 @@ def DSLupload(request):
         return redirect('DSLsong', song_id=song.id)
 
     return render(request, 'DSLupload.html')
+
+from django.contrib.auth.models import User
+users = User.objects.all()
+for user in users:
+    print(user.username)

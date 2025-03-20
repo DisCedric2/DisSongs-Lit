@@ -18,3 +18,24 @@ body, html {
     padding: 1rem;
     margin-top: auto;
 }
+
+.table-dark th, .table-dark td {
+    border-color: yellow;
+}
+
+.table-dark tbody tr:hover {
+    background-color: #1a1a7a;
+}
+
+.table-dark th {
+    font-weight: bold;
+    color: yellow;
+}
+
+.table-dark td {
+    color: yellow;
+}
+
+.table-striped tbody tr:nth-of-type(odd) {
+    background-color: #000066;
+}
