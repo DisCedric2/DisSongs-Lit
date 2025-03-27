@@ -1,22 +1,23 @@
 body, html {
+    height: 100%;
     margin: 0;
     padding: 0;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
 }
 
 .content {
     flex: 1;
-    padding: 20px;
 }
 
 .footer {
+    width: 100%;
     background-color: #000057;
     color: yellow;
     text-align: center;
     padding: 1rem;
     margin-top: auto;
+    position: relative;
 }
 
 .table-dark th, .table-dark td {
