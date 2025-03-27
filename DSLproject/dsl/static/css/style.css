@@ -1,11 +1,38 @@
-body, html {
+/* body, html {
     height: 100%;
     margin: 0;
     padding: 0;
     display: flex;
     flex-direction: column;
+} */
+body {
+    background-color: white;
+    color: black;
 }
-
+.navbar {
+    background-color: #000057 !important;
+}
+#navbarNav .navbar-nav {
+    padding-top: 5px;
+}
+.navbar-brand, .nav-link {
+    color: yellow !important;
+}
+.nav-link:hover {
+    color: yellow !important;
+}
+.dropdown-menu {
+    background-color: #000057;
+}
+.dropdown-item {
+    color: yellow !important;
+}
+.dropdown-item:hover {
+    background-color: #000057 !important;
+}
+.nav-item{
+    font-size: 20px;
+}
 .content {
     flex: 1;
 }
