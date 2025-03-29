@@ -103,8 +103,8 @@ def signup(req):
 
 def signin(req):
     if req.method == "POST":
-        uname = req.POST["username"]
-        upass = req.POST["password"]
+        uname = req.POST["uname"]
+        upass = req.POST["upass"]
         context = {}
         if uname == "" or upass == "":
             context["errmsg"] = "Field cant be empty :("
@@ -125,6 +125,48 @@ def logout_user(req):
     logout(req)
     messages.success(req, "You have successfully logged out :(")
     return redirect("/")
+
+def req_pass_reset(req):
+    if req.method == "GET":
+        return render(req, "req_pass_reset.html")
+    else:
+        uname = req.POST.get("uname")
+        context = {}
+        print(uname)
+        try:
+            userdata = User.objects.get(username=uname)
+            return redirect("reset_pass", uname=userdata.username)
+        
+        except User.DoesNotExist:
+            context["errmsg"] = "No account found with this username"
+            return render(req, "req_pass_reset.html", context)
+        
+def reset_pass(req, uname):
+    userdata = User.objects.get(username = uname)
+    if req.method == "GET":
+        return render(req, "reset_pass.html", {"user" : userdata.username})
+    else:
+        upass = req.POST["upass"]
+        ucpass = req.POST["ucpass"]
+        context = {}
+        userdata = User.objects.get(username=uname)
+        try:
+            if upass == "" or ucpass == "":
+                context["errmsg"] = "Field cannot be empty :("
+                return render(req, "reset_pass.html", context)
+            elif upass != ucpass:
+                context["errmsg"] = "Password and Confirm Password aint Matching Dude :("
+                return render(req, "reset_pass.html", context)
+            else:
+                validate_password(upass)
+                userdata.set_password(upass)
+                userdata.save()
+                return redirect("/DSLsignin")
+            
+        except ValidationError as e:
+            context["errmsg"] = str(e)
+            return redirect(req, 'reset_pass.html', context)
+
 '''
 def login_user(request):
     if request.method == "POST":

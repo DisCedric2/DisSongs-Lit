@@ -1,0 +1,24 @@
+{% extends "DSLbase.html" %} {% load static %}
+
+{% block title %}DisSongs-Lit | Request Password Reset{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <h2 class="text-center">Request Password Reset</h2>
+
+        {% if errmsg %}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <strong>Error :(</strong> {{ errmsg }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+        {% endif %}
+
+        <form method="post">
+            {% csrf_token %}
+            <input type="text" name="uname" required>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+</div>
+{% endblock %}
