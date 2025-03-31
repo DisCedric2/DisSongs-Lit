@@ -44,4 +44,10 @@ class PremiumSubscription(models.Model):
 
     def __str__(self):
         return f"{self.user.username} - Premium: {self.subscription_status}"
-    
+
+    @staticmethod
+    def is_premium(user):
+        """Returns True if the user is a premium member."""
+        if user.is_authenticated:
+            return PremiumSubscription.objects.filter(user=user, subscription_status=True).exists()
+        return False

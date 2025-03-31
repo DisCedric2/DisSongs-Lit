@@ -249,7 +249,6 @@ def payment_success(req):
         subscription.payment_id = payment_id
         subscription.subscription_status = True
         subscription.save()
-        return HttpResponse("PAYMENT SUCCESSFULL :)")
     return redirect("DSLhome")
 
 from django.contrib.auth.decorators import login_required
@@ -267,9 +266,37 @@ def DSLsong(request, song_id):
         return redirect('DSLhome')
     
 def DSLhome(req):
-    top_songs = AddSong.objects.all().order_by('-click_count')[:5] #top 5 most played songs
+    top_songs = AddSong.objects.all().order_by('-click_count')[:5]
     songs = AddSong.objects.all()
-    context = {'songs':songs, 'top_songs':top_songs}
+
+    is_premium = False
+    order_id = ""
+
+    if req.user.is_authenticated:
+        # if premium
+        premium_subscription = PremiumSubscription.objects.filter(user=req.user, subscription_status=True).first()
+        if premium_subscription:
+            is_premium = True
+        else:
+            # If not premium
+            client = razorpay.Client(auth=(settings.RAZORPAY_API_KEY, settings.RAZORPAY_API_SECRET))
+            amount = 9900  # 99 INR in paise
+            order = client.order.create({
+                "amount": amount,
+                "currency": "INR",
+                "payment_capture": "1"
+            })
+            order_id = order["id"]
+
+    context = {
+        'songs': songs,
+        'top_songs': top_songs,
+        'user': req.user,
+        'is_premium': is_premium,
+        'api_key': settings.RAZORPAY_API_KEY,
+        'amount': 9900,
+        'order_id': order_id
+    }
     return render(req, 'DSLhome.html', context)
     
 from django.contrib.auth.decorators import login_required
