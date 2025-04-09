@@ -14,6 +14,13 @@
         <p>Your go-to platform for song lyrics, discussions, and everything music-related.</p>
     </div>
 
+    {% if query %}
+    <div class="alert alert-info text-center">
+        <strong>Showing results for:</strong> "{{ query }}"
+    </div>
+    {% endif %}
+
+
     <!-- Premium Users Section -->
     {% if user.is_authenticated %}
         {% if is_premium %}
@@ -29,11 +36,11 @@
                 <a href="{% url 'create_payment' %}" class="btn btn-primary">Go Premium</a>
             </div>
         {% endif %}
-    {% else %}
-        <div class="alert alert-danger text-center">
+    <!-- {% else %} -->
+        <!-- <div class="alert alert-danger text-center">
             <h3>Welcome, Guest! 👋</h3>
             <p>Sign in to unlock more features! <a href="{% url 'DSLsignin' %}" class="btn btn-secondary">Login</a></p>
-        </div>
+        </div> -->
     {% endif %}
 
     <!-- Top Songs Chart -->
@@ -67,6 +74,7 @@
 
     <!-- Songs Section -->
     <div id="songs" class="section">
+        {% if songs %}
         <div class="row g-4">
             {% for song in songs %}
             <div class="col-md-6">
@@ -89,10 +97,44 @@
             {% empty %}
             <p class="text-center">No songs available at the moment.</p>
             {% endfor %}
+            {% else %}
+            <p>No songs matched your search :(</p>
+            {% endif %}
         </div>
     </div>
 
     <br>
+    <!-- About Us Section -->
+    <div id="about" class="mt-5">
+        <h2 class="text-center mb-4">🎤 About Us 🎶</h2>
+        <div class="card p-4 shadow bg-light">
+            <p><strong>Welcome to DisSongs Lit</strong> — your ultimate destination for discovering song lyrics, artist insights, and everything musically awesome!</p>
+
+            <p>Music is more than just sound — it’s emotion, memory, and expression. Our project celebrates this magic by offering a platform where users can explore lyrics from every genre: from hip-hop bars to indie ballads, from Bollywood beats to K-pop fire!</p>
+
+            <p><strong>Cool Features of DisSongs Lit:</strong></p>
+            <ul>
+                <li>🎧 <strong>Locked Lyrics</strong> for Guests: Only registered users can unlock full lyrics and song insights.</li>
+                <li>✨ <strong>Premium Members</strong> can upload songs, request lyrics, and enjoy an ad-free experience.</li>
+                <li>🔍 <strong>Smart Search</strong> (try it in the navbar!)</li>
+                <li>🚀 <strong>Trending Songs</strong> appear on our live Top Hits chart based on clicks.</li>
+                <li>📈 Real-time song views, click counters, and user interaction tracking.</li>
+            </ul>
+
+            <p><strong>Fun Music Facts:</strong></p>
+            <ul>
+                <li>🎼 The world’s oldest known melody dates back over 3,400 years.</li>
+                <li>🎹 The Beatles hold the record for the most No.1 hits on the Billboard Hot 100.</li>
+                <li>🎤 Eminem once rapped 97 words in 15 seconds — a Guinness World Record!</li>
+                <li>🎸 Music has been scientifically proven to reduce anxiety and improve productivity.</li>
+                <li>💿 Vinyl records are making a comeback stronger than ever!</li>
+            </ul>
+
+            <p>We’re not just another lyrics website. We’re a community, a vibe, and a culture. Whether you’re looking to belt out a karaoke song or dive into deep lyric meanings, DisSongs Lit has something for every kind of music lover.</p>
+
+            <p class="text-center">Thank you for being part of the DisSongs Lit fam. Keep it LIT 🔥🎶</p>
+        </div>
+    </div>
 
     {% if user.is_authenticated %}
         {% if not is_premium %}

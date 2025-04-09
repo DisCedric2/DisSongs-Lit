@@ -1,54 +1,105 @@
-/* body, html {
-    height: 100%;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-} */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+
+/* Font for navbar and footer */
+.navbar, .footer {
+    /* font-family: "Times New Roman", Times, serif; */
+    font-family: 'Poppins', sans-serif;
+    /* font-family: 'Roboto', sans-serif; */
+}
+
+/* Base page style */
 body {
     background-color: white;
     color: black;
 }
+
+/* NAVBAR TWEAKS */
 .navbar {
     background-color: #000057 !important;
-}
-#navbarNav .navbar-nav {
-    padding-top: 5px;
-}
-.navbar-brand, .nav-link {
-    color: yellow !important;
-}
-.nav-link:hover {
-    color: yellow !important;
-}
-.dropdown-menu {
-    background-color: #000057;
-}
-.dropdown-item {
-    color: yellow !important;
-}
-.dropdown-item:hover {
-    background-color: #000057 !important;
-}
-.nav-item{
-    font-size: 20px;
-}
-.content {
-    flex: 1;
+    padding-top: 0.4rem;
+    padding-bottom: 0.4rem;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+    border-radius: 0 0 12px 12px;
+    transition: all 0.3s ease-in-out;
 }
 
+/* Brand & nav link styles */
+.navbar-brand, .nav-link {
+    color: yellow !important;
+    font-size: 1rem;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+}
+
+/* Logo image fix */
+.navbar-brand img {
+    border-radius: 8px;
+}
+
+/* Link spacing */
+.nav-item {
+    margin-left: 0.75rem;
+}
+
+/* Hover behavior */
+.nav-link:hover {
+    color: white !important;
+    text-shadow: 0 0 5px yellow;
+    text-decoration: none;
+}
+
+/* Buttons inside navbar */
+.navbar .btn {
+    font-size: 0.9rem;
+    padding: 4px 10px;
+    border-radius: 6px;
+    transition: background-color 0.3s ease-in-out, transform 0.2s;
+}
+
+.navbar .btn:hover {
+    transform: scale(1.05);
+}
+
+/* SEARCH BAR */
+.navbar input[type="search"] {
+    border-radius: 8px;
+    font-size: 0.9rem;
+    padding: 0.35rem 0.6rem;
+    border: 1px solid #ccc;
+}
+
+/* DROPDOWNS */
+.dropdown-menu {
+    background-color: #000066;
+    border-radius: 8px;
+}
+
+.dropdown-item {
+    color: yellow !important;
+    transition: background-color 0.2s ease;
+}
+
+.dropdown-item:hover {
+    background-color: #1a1a7a !important;
+}
+
+/* FOOTER STYLE */
 .footer {
-    width: 100%;
+    font-family: "Roboto", sans-serif;
     background-color: #000057;
     color: yellow;
     text-align: center;
-    padding: 1rem;
-    margin-top: auto;
-    position: relative;
+    padding: 0.8rem;
+    font-size: 0.95rem;
+    border-radius: 12px 12px 0 0;
+    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.15);
 }
 
+/* TABLE STYLES */
 .table-dark th, .table-dark td {
     border-color: yellow;
+    color: yellow;
 }
 
 .table-dark tbody tr:hover {
@@ -57,13 +108,24 @@ body {
 
 .table-dark th {
     font-weight: bold;
-    color: yellow;
-}
-
-.table-dark td {
-    color: yellow;
 }
 
 .table-striped tbody tr:nth-of-type(odd) {
     background-color: #000066;
+}
+
+/* CARD STYLING */
+.card {
+    border-radius: 12px;
+    transition: transform 0.3s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* SONG IMAGE ROUNDING */
+.card-img-top {
+    border-radius: 12px 12px 0 0;
 }

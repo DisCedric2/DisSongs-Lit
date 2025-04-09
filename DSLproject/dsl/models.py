@@ -12,6 +12,7 @@ class AddSong(models.Model):
     title = models.CharField(max_length=200)
     artist = models.CharField(max_length=100)
     description = models.TextField(blank=True)
+    genre = models.CharField(max_length=100, default="Unknown")
     lyrics = models.TextField(default='N/A', blank=True, null=True)
     image = models.ImageField(upload_to='images/')
     uploaded_by = models.ForeignKey(User, on_delete=models.CASCADE, default=1)
